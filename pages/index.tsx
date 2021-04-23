@@ -12,12 +12,12 @@ const Home: React.VFC = () => {
       )}
       {session && (
         <>
-          サインイン完了。 email: {session.user.email} <br />
+          サインイン完了。 id: {session.user.id}, email: {session.user.email} <br />
           <button onClick={() => signOut()}>Sign out</button>
         </>
       )}
     </>
   );
-}
+};
 
 export default Home;

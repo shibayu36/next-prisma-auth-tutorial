@@ -14,8 +14,9 @@ export default NextAuth({
 
   callbacks: {
     session: async (session, user) => {
-      session.user.id = user.id;
-      return Promise.resolve(session);
+      // 本当はちゃんとJWTとユーザーのチェックが必要
+      session.user.id = user.id as string;
+      return session;
     },
   },
 });
