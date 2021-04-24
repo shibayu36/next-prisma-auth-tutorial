@@ -15,7 +15,7 @@ export default NextAuth({
   callbacks: {
     session: async (session, user) => {
       // 本当はちゃんとJWTとユーザーのチェックが必要
-      session.user.id = user.id as string;
+      session.user.id = user.id as number;
       return session;
     },
   },
