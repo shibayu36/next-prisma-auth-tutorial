@@ -13,7 +13,7 @@
     "lint-fix": "run-p lint-fix:*",
     "lint-fix:eslint": "eslint . --fix",
     "lint-fix:prettier": "prettier --write '*.js' '**/*.{ts,tsx}'",
-    "deploy:migrate": "prisma migrate deploy",
+    "deploy:migrate": "prisma migrate deploy"
   },
   "dependencies": {
     "@prisma/client": "2.21.2",
