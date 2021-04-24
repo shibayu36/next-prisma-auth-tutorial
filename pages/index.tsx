@@ -4,7 +4,9 @@ import { NewTodoForm } from "../components/NewTodoForm";
 import { TodoList } from "../components/TodoList";
 
 const Home: React.VFC = () => {
-  const [session] = useSession();
+  const [session, isLoading] = useSession();
+  if (isLoading) return null;
+
   return (
     <>
       {!session && (
