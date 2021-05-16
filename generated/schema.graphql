@@ -3,6 +3,7 @@
 
 
 type Query {
+  getAllUsers: [User]
   user(where: UserWhereUniqueInput!): User
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
 }

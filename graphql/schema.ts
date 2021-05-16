@@ -4,6 +4,12 @@ import { nexusPrisma } from "nexus-plugin-prisma";
 
 const Query = queryType({
   definition(t) {
+    t.list.field("getAllUsers", {
+      type: "User",
+      resolve(_, _args, ctx) {
+        return ctx.prisma.user.findMany({});
+      },
+    });
     t.crud.users();
     t.crud.user();
   },
