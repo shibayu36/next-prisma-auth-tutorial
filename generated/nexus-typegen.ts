@@ -4,16 +4,25 @@
  */
 
 
+import { Context } from "./../graphql/context"
 
 
-
-
+declare global {
+  interface NexusGenCustomOutputProperties<TypeName extends string> {
+    crud: NexusPrisma<TypeName, 'crud'>
+    model: NexusPrisma<TypeName, 'model'>
+  }
+}
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
 }
 
 export interface NexusGenInputs {
+  UserWhereUniqueInput: { // input type
+    email?: string | null; // String
+    id?: number | null; // Int
+  }
 }
 
 export interface NexusGenEnums {
@@ -29,6 +38,10 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Query: {};
+  User: { // root type
+    id: number; // Int!
+    name?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -43,17 +56,38 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Query: { // field return type
-    hello: string | null; // String
+    user: NexusGenRootTypes['User'] | null; // User
+    users: NexusGenRootTypes['User'][]; // [User!]!
+  }
+  User: { // field return type
+    id: number; // Int!
+    name: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
   Query: { // field return type name
-    hello: 'String'
+    user: 'User'
+    users: 'User'
+  }
+  User: { // field return type name
+    id: 'Int'
+    name: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
+  Query: {
+    user: { // args
+      where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+    }
+    users: { // args
+      after?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+      before?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
@@ -64,7 +98,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = never;
 
@@ -87,7 +121,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: any;
+  context: Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;
