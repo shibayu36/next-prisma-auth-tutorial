@@ -19,6 +19,43 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  TodoCreateManyUserInput: { // input type
+    body: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: number | null; // Int
+    title: string; // String!
+  }
+  TodoCreateManyUserInputEnvelope: { // input type
+    data?: NexusGenInputs['TodoCreateManyUserInput'][] | null; // [TodoCreateManyUserInput!]
+    skipDuplicates?: boolean | null; // Boolean
+  }
+  TodoCreateNestedManyWithoutUserInput: { // input type
+    connect?: NexusGenInputs['TodoWhereUniqueInput'][] | null; // [TodoWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['TodoCreateOrConnectWithoutUserInput'][] | null; // [TodoCreateOrConnectWithoutUserInput!]
+    create?: NexusGenInputs['TodoCreateWithoutUserInput'][] | null; // [TodoCreateWithoutUserInput!]
+    createMany?: NexusGenInputs['TodoCreateManyUserInputEnvelope'] | null; // TodoCreateManyUserInputEnvelope
+  }
+  TodoCreateOrConnectWithoutUserInput: { // input type
+    create: NexusGenInputs['TodoCreateWithoutUserInput']; // TodoCreateWithoutUserInput!
+    where: NexusGenInputs['TodoWhereUniqueInput']; // TodoWhereUniqueInput!
+  }
+  TodoCreateWithoutUserInput: { // input type
+    body: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    title: string; // String!
+  }
+  TodoWhereUniqueInput: { // input type
+    id?: number | null; // Int
+  }
+  UserCreateInput: { // input type
+    Todo?: NexusGenInputs['TodoCreateNestedManyWithoutUserInput'] | null; // TodoCreateNestedManyWithoutUserInput
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    email?: string | null; // String
+    emailVerified?: NexusGenScalars['DateTime'] | null; // DateTime
+    image?: string | null; // String
+    name?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   UserWhereUniqueInput: { // input type
     email?: string | null; // String
     id?: number | null; // Int
@@ -34,9 +71,11 @@ export interface NexusGenScalars {
   Float: number
   Boolean: boolean
   ID: string
+  DateTime: any
 }
 
 export interface NexusGenObjects {
+  Mutation: {};
   Query: {};
   User: { // root type
     id: number; // Int!
@@ -55,6 +94,9 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Mutation: { // field return type
+    createOneUser: NexusGenRootTypes['User']; // User!
+  }
   Query: { // field return type
     getAllUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     user: NexusGenRootTypes['User'] | null; // User
@@ -67,6 +109,9 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Mutation: { // field return type name
+    createOneUser: 'User'
+  }
   Query: { // field return type name
     getAllUsers: 'User'
     user: 'User'
@@ -79,6 +124,11 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createOneUser: { // args
+      data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
+    }
+  }
   Query: {
     user: { // args
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!

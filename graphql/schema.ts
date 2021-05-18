@@ -1,5 +1,5 @@
 import path from "path";
-import { queryType, makeSchema, objectType } from "nexus";
+import { queryType, makeSchema, objectType, mutationType } from "nexus";
 import { nexusPrisma } from "nexus-plugin-prisma";
 
 const Query = queryType({
@@ -15,6 +15,12 @@ const Query = queryType({
   },
 });
 
+const Mutation = mutationType({
+  definition(t) {
+    t.crud.createOneUser();
+  },
+});
+
 const User = objectType({
   name: "User",
   definition(t) {
@@ -24,7 +30,7 @@ const User = objectType({
 });
 
 export const schema = makeSchema({
-  types: [Query, User],
+  types: [Query, Mutation, User],
   plugins: [
     nexusPrisma({
       experimentalCRUD: true,
