@@ -6,6 +6,7 @@ scalar DateTime
 
 type Mutation {
   createOneUser(data: UserCreateInput!): User!
+  deleteAllUsers: String
 }
 
 type Query {

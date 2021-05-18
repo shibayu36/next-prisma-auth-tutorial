@@ -18,6 +18,13 @@ const Query = queryType({
 const Mutation = mutationType({
   definition(t) {
     t.crud.createOneUser();
+    t.field("deleteAllUsers", {
+      type: "String",
+      async resolve(_parent, _args, ctx) {
+        const { count } = await ctx.prisma.user.deleteMany({});
+        return `${count} users deleted.`;
+      },
+    });
   },
 });
 
