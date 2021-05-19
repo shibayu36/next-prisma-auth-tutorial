@@ -11,7 +11,7 @@ type Mutation {
 
 type Query {
   getAllUsers: [User]
-  user(where: UserWhereUniqueInput!): User
+  user(id: Int!): User
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
 }
 

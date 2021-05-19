@@ -1,5 +1,5 @@
 import path from "path";
-import { queryType, makeSchema, objectType, mutationType } from "nexus";
+import { intArg, makeSchema, mutationType, nonNull, objectType, queryType } from "nexus";
 import { nexusPrisma } from "nexus-plugin-prisma";
 
 const Query = queryType({
@@ -11,7 +11,20 @@ const Query = queryType({
       },
     });
     t.crud.users();
-    t.crud.user();
+    t.field("user", {
+      type: "User",
+      args: {
+        id: nonNull(intArg()),
+      },
+      resolve: async (_, { id }, ctx) => {
+        const user = await ctx.prisma.user.findFirst({
+          where: {
+            id,
+          },
+        });
+        return user;
+      },
+    });
   },
 });
 

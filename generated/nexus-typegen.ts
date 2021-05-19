@@ -133,7 +133,7 @@ export interface NexusGenArgTypes {
   }
   Query: {
     user: { // args
-      where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+      id: number; // Int!
     }
     users: { // args
       after?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
