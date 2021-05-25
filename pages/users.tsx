@@ -8,12 +8,6 @@ const UsersHandler: React.VFC = () => {
   if (isLoading) return <div>Loading...</div>;
 
   if (error) return <span>"An error has occurred: " + error</span>;
-  console.log(error);
-
-  console.log(data);
-  data.getAllUsers.map((user) => {
-    console.log(user.name);
-  });
 
   return (
     <ul>
