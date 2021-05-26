@@ -10,7 +10,17 @@ const Query = queryType({
         return ctx.prisma.user.findMany({});
       },
     });
-    t.crud.users();
+    t.list.field("users", {
+      type: "User",
+      args: {
+        offset: intArg(),
+        limit: nonNull(intArg()),
+      },
+      resolve: async (_, { offset, limit }, ctx) => {
+        const users = await ctx.prisma.user.findMany({ skip: offset ?? 0, take: limit });
+        return users;
+      },
+    });
     t.field("user", {
       type: "User",
       args: {

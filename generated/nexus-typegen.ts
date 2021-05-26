@@ -56,10 +56,6 @@ export interface NexusGenInputs {
     name?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
-  UserWhereUniqueInput: { // input type
-    email?: string | null; // String
-    id?: number | null; // Int
-  }
 }
 
 export interface NexusGenEnums {
@@ -101,7 +97,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     getAllUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     user: NexusGenRootTypes['User'] | null; // User
-    users: NexusGenRootTypes['User'][]; // [User!]!
+    users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
   User: { // field return type
     id: number; // Int!
@@ -136,10 +132,8 @@ export interface NexusGenArgTypes {
       id: number; // Int!
     }
     users: { // args
-      after?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
-      before?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
-      first?: number | null; // Int
-      last?: number | null; // Int
+      limit: number; // Int!
+      offset?: number | null; // Int
     }
   }
 }

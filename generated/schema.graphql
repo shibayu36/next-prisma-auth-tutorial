@@ -12,7 +12,7 @@ type Mutation {
 type Query {
   getAllUsers: [User]
   user(id: Int!): User
-  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
+  users(limit: Int!, offset: Int): [User]
 }
 
 input TodoCreateManyUserInput {
@@ -62,9 +62,4 @@ input UserCreateInput {
   image: String
   name: String
   updatedAt: DateTime
-}
-
-input UserWhereUniqueInput {
-  email: String
-  id: Int
 }
