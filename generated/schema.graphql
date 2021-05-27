@@ -2,10 +2,12 @@
 ### Do not make changes to this file directly
 
 
-scalar DateTime
+input CreateUserInput {
+  name: String!
+}
 
 type Mutation {
-  createOneUser(data: UserCreateInput!): User!
+  createUser(input: CreateUserInput): User
   deleteAllUsers: String
 }
 
@@ -15,51 +17,7 @@ type Query {
   users(limit: Int!, offset: Int): [User]
 }
 
-input TodoCreateManyUserInput {
-  body: String!
-  createdAt: DateTime
-  id: Int
-  title: String!
-}
-
-input TodoCreateManyUserInputEnvelope {
-  data: [TodoCreateManyUserInput!]
-  skipDuplicates: Boolean
-}
-
-input TodoCreateNestedManyWithoutUserInput {
-  connect: [TodoWhereUniqueInput!]
-  connectOrCreate: [TodoCreateOrConnectWithoutUserInput!]
-  create: [TodoCreateWithoutUserInput!]
-  createMany: TodoCreateManyUserInputEnvelope
-}
-
-input TodoCreateOrConnectWithoutUserInput {
-  create: TodoCreateWithoutUserInput!
-  where: TodoWhereUniqueInput!
-}
-
-input TodoCreateWithoutUserInput {
-  body: String!
-  createdAt: DateTime
-  title: String!
-}
-
-input TodoWhereUniqueInput {
-  id: Int
-}
-
 type User {
   id: Int!
   name: String
-}
-
-input UserCreateInput {
-  Todo: TodoCreateNestedManyWithoutUserInput
-  createdAt: DateTime
-  email: String
-  emailVerified: DateTime
-  image: String
-  name: String
-  updatedAt: DateTime
 }

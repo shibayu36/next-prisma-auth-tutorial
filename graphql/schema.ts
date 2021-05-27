@@ -1,5 +1,5 @@
 import path from "path";
-import { intArg, makeSchema, mutationType, nonNull, objectType, queryType } from "nexus";
+import { arg, inputObjectType, intArg, makeSchema, mutationType, nonNull, objectType, queryType } from "nexus";
 import { nexusPrisma } from "nexus-plugin-prisma";
 
 const Query = queryType({
@@ -40,7 +40,22 @@ const Query = queryType({
 
 const Mutation = mutationType({
   definition(t) {
-    t.crud.createOneUser();
+    t.field("createUser", {
+      type: "User",
+      args: {
+        input: arg({
+          type: "CreateUserInput",
+        }),
+      },
+      async resolve(_parent, { input }, ctx) {
+        const user = await ctx.prisma.user.create({
+          data: {
+            name: input.name,
+          },
+        });
+        return user;
+      },
+    });
     t.field("deleteAllUsers", {
       type: "String",
       async resolve(_parent, _args, ctx) {
@@ -59,8 +74,15 @@ const User = objectType({
   },
 });
 
+const CreateUserInput = inputObjectType({
+  name: "CreateUserInput",
+  definition(t) {
+    t.field("name", { type: nonNull("String") });
+  },
+});
+
 export const schema = makeSchema({
-  types: [Query, Mutation, User],
+  types: [Query, Mutation, User, CreateUserInput],
   plugins: [
     nexusPrisma({
       experimentalCRUD: true,
